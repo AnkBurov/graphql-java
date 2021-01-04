@@ -73,7 +73,7 @@ class GraphqlErrorHelperTest extends Specification {
         specMap == [
                 locations : [[line: 6, column: 9]],
                 message   : "Validation error of type InvalidFragmentType: Things are not valid",
-                extensions: [classification: "ValidationError"],
+                extensions: [errorCode:"ValidationError"],
 
         ]
     }
@@ -84,7 +84,7 @@ class GraphqlErrorHelperTest extends Specification {
         then:
         specMap == [extensions: [
                 extra         : "extensionData",
-                classification: [
+                errorCode: [
                         statusCode: 200,
                         reason    : "Bad juj ju"
                 ]],

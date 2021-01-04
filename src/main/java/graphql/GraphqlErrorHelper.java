@@ -36,10 +36,8 @@ public class GraphqlErrorHelper {
             } else {
                 extensions = new LinkedHashMap<>();
             }
-            // put in the classification unless its already there
-            if (!extensions.containsKey("classification")) {
-                extensions.put("classification", errorClassification.toSpecification(error));
-            }
+            // put in the errorCode unless its already there
+            extensions.putIfAbsent("errorCode", errorClassification.toSpecification(error));
         }
 
         if (extensions != null) {

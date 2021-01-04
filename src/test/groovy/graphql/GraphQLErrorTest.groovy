@@ -29,41 +29,41 @@ class GraphQLErrorTest extends Specification {
                 [
                         locations: [[line: 666, column: 999], [line: 333, column: 0]],
                         message  : "Validation error of type UnknownType: Test ValidationError",
-                        extensions:[classification:"ValidationError"],
+                        extensions:[errorCode:"ValidationError"],
                 ]
 
         new MissingRootTypeException("Mutations are not supported on this schema", null)               |
                 [
                         message: "Mutations are not supported on this schema",
-                        extensions:[classification:"OperationNotSupported"],
+                        extensions:[errorCode:"OperationNotSupported"],
                 ]
 
         new InvalidSyntaxError(mkLocations(), "Not good syntax m'kay")                                 |
                 [
                         locations: [[line: 666, column: 999], [line: 333, column: 0]],
                         message  : "Not good syntax m'kay",
-                        extensions:[classification:"InvalidSyntax"],
+                        extensions:[errorCode:"InvalidSyntax"],
                 ]
 
         new NonNullableFieldWasNullError(new NonNullableFieldWasNullException(mkTypeInfo(), mkPath())) |
                 [
                         message: 'Cannot return null for non-nullable type: \'__Schema\' (/heroes[0]/abilities/speed[4])',
                         path   : ["heroes", 0, "abilities", "speed", 4],
-                        extensions:[classification:"DataFetchingException"],
+                        extensions:[errorCode:"DataFetchingException"],
                 ]
 
         new SerializationError(mkPath(), new CoercingSerializeException("Bad coercing"))               |
                 [
                         message: "Can't serialize value (/heroes[0]/abilities/speed[4]) : Bad coercing",
                         path   : ["heroes", 0, "abilities", "speed", 4],
-                        extensions:[classification:"DataFetchingException"],
+                        extensions:[errorCode:"DataFetchingException"],
                 ]
 
         new ExceptionWhileDataFetching(mkPath(), new RuntimeException("Bang"), mkLocation(666, 999))   |
                 [locations: [[line: 666, column: 999]],
                  message  : "Exception while fetching data (/heroes[0]/abilities/speed[4]) : Bang",
                  path     : ["heroes", 0, "abilities", "speed", 4],
-                 extensions:[classification:"DataFetchingException"],
+                 extensions:[errorCode:"DataFetchingException"],
                 ]
 
     }
